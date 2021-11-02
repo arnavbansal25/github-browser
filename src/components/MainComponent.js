@@ -66,6 +66,12 @@ function MainComponent() {
         //     })
     }, [])
 
+    const handleDeleteRepo = () => {
+        setRepos(prev => {
+            return prev.filter(repo => repo.fullName != selectedRepo.fullName);
+        });
+    }
+
 
     return (
         <Wrapper>
@@ -98,7 +104,7 @@ function MainComponent() {
                     </Grid>
 
                     <Grid item xs={8}>
-                        <Button variant="contained" onClick={() => console.log("delete")}>Delete</Button>
+                        <Button variant="contained" onClick={handleDeleteRepo}>Delete</Button>
 
                         {selectedRepo ?
                             <RightPanel
