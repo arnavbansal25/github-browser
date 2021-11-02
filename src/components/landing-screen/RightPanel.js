@@ -15,9 +15,17 @@ const Item = muiStyled(Paper)(({ theme }) => ({
     border: '2px solid #000',
 }));
 
-function BranchInfo({ index, branch }) {
+function BranchInfo({ index, branch, ownerName, repoName }) {
+    console.log("ppp", ownerName, repoName);
     return (
-        <div key={index} style={{cursor: 'pointer', backgroundColor: 'pink', marginBottom: '5px'}}>
+        <div key={index} style={{ cursor: 'pointer', backgroundColor: 'pink', marginBottom: '5px' }}
+            onClick={() => {
+                var win = window.open("/landing-screen/branch-commits", "_blank")
+                win.selectedBranch = branch;
+                win.ownerName = ownerName;
+                win.repoName = repoName;
+            }}
+        >
             {branch.name}
         </div>
     )
@@ -28,7 +36,7 @@ function IssueInfo({ index, issue }) {
     return (
         <div key={index}>
             {issue.title}
-            <div style={{display: 'flex', alignItems: 'center'}}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
                 <img src={issue.user.avatar_url} width="30" height="30" />
                 &nbsp;&nbsp;{issue.user.login}
             </div>
@@ -62,10 +70,11 @@ function RightPanel(props) {
 
     const [branches, setBranches] = React.useState([]);
     const [issues, setIssues] = React.useState([]);
+    const ownerName = selectedRepo.fullName.split("/")[0];
+    const repoName = selectedRepo.fullName.split("/")[1];
 
     React.useEffect(() => {
-        const ownerName = selectedRepo.fullName.split("/")[0];
-        const repoName = selectedRepo.fullName.split("/")[1];
+
         axios.get(`https://api.github.com/repos/${ownerName}/${repoName}/branches`)
             .then(response => {
                 console.log("qqe", response);
@@ -103,7 +112,12 @@ function RightPanel(props) {
                 </Box>
                 <TabPanel value={tab} index={0}>
                     {branches && branches.map((item, index) => (
-                        <BranchInfo index={index} branch={item} />
+                        <BranchInfo
+                            index={index}
+                            branch={item}
+                            ownerName={ownerName}
+                            repoName={repoName}
+                        />
                     ))}
                 </TabPanel>
                 <TabPanel value={tab} index={1}>
