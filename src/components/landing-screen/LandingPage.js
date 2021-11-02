@@ -26,16 +26,18 @@ const Wrapper = styled.div`
 const Heading = styled.h1`
     text-align: center;
     margin-bottom: 40px;
+    // background-color: #161b22;
+    color:#e4f3f3;
 `
 
 const Content = styled.div`
-    background-color: grey;
+    // background-color: pink;
     border-radius: 5px;
     padding: 0 10px;
 `
 
 const AddRepoIcon = styled.div`
-    background-image: radial-gradient(skyblue, blue); 
+    background-image: radial-gradient(#238636, green); 
     width: 50px;
     height: 50px;
     display: flex;
@@ -47,11 +49,6 @@ const AddRepoIcon = styled.div`
 
 function LandingScreen() {
 
-    // const [repos, setRepos] = React.useState([
-    //     { text: 'buy coffee', key: '1' },
-    //     { text: 'create an app', key: '2' },
-    //     { text: 'play on the switch', key: '3' },
-    // ]);
     const [repos, setRepos] = React.useState([]);
     const [selectedRepo, setSelectedRepo] = React.useState();
     const [addModal, setAddModal] = React.useState(false);
@@ -76,7 +73,6 @@ function LandingScreen() {
 
     return (
         <Wrapper>
-
             {/* Add Repository Dialog */}
             <AddModal
                 open={addModal}
@@ -90,33 +86,39 @@ function LandingScreen() {
 
             {/* Page Content */}
             <Content>
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        {repos && repos.map((item, index) => (
-                            <LeftPanel
-                                index={index}
-                                repo={item}
-                                setSelectedRepo={setSelectedRepo}
-                            />
-                        ))}
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ width: '39%' }}>
+                        <div style={{ marginBottom: '10px', maxHeight: '550px', overflowY: 'scroll' }}>
+                            {repos && repos.map((item, index) => (
+                                <LeftPanel
+                                    index={index}
+                                    repo={item}
+                                    setSelectedRepo={setSelectedRepo}
+                                />
+                            ))}
+                        </div>
                         <AddRepoIcon onClick={() => setAddModal(true)}>
-                            <AddIcon />
+                            <AddIcon style={{ fill: "white" }} />
                         </AddRepoIcon>
-                    </Grid>
+                    </div>
 
-                    <Grid item xs={8}>
-                        <Button variant="contained" onClick={handleDeleteRepo}>Delete</Button>
+                    <div style={{ width: '60%' }}>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button variant="contained" style={{ backgroundColor: '#238636' }} onClick={handleDeleteRepo}>Delete</Button>
+                        </div>
+                        <div style={{ backgroundColor: '#161b22', marginTop: '10px', maxHeight: '550px', overflowY: 'scroll' }}>
+                            {selectedRepo ?
+                                <RightPanel
+                                    selectedRepo={selectedRepo}
+                                />
+                                :
+                                <>
+                                </>
+                            }
+                        </div>
+                    </div>
+                </div>
 
-                        {selectedRepo ?
-                            <RightPanel
-                                selectedRepo={selectedRepo}
-                            />
-                            :
-                            <>
-                            </>
-                        }
-                    </Grid>
-                </Grid>
             </Content>
         </Wrapper>
     )

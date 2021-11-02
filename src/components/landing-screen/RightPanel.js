@@ -16,9 +16,8 @@ const Item = muiStyled(Paper)(({ theme }) => ({
 }));
 
 function BranchInfo({ index, branch, ownerName, repoName }) {
-    console.log("ppp", ownerName, repoName);
     return (
-        <div key={index} style={{ cursor: 'pointer', backgroundColor: 'pink', marginBottom: '5px' }}
+        <div key={index} style={{ cursor: 'pointer', backgroundColor: '#000408', color: '#d1cdcd', marginBottom: '5px', padding: '5px', overflowWrap: 'break-word' }}
             onClick={() => {
                 var win = window.open("/landing-screen/branch-commits", "_blank")
                 win.selectedBranch = branch;
@@ -32,12 +31,11 @@ function BranchInfo({ index, branch, ownerName, repoName }) {
 };
 
 function IssueInfo({ index, issue }) {
-    console.log("call", issue);
     return (
-        <div key={index}>
-            {issue.title}
+        <div key={index} style={{ backgroundColor: '#000408', color: '#d1cdcd', marginBottom: '5px', padding: '10px', overflowWrap: 'break-word' }}>
+            <div style={{marginBottom: '5px'}}>{issue.title}</div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img src={issue.user.avatar_url} width="30" height="30" />
+                <img src={issue.user.avatar_url} width="30" height="30" style={{borderRadius: '50px'}} />
                 &nbsp;&nbsp;{issue.user.login}
             </div>
         </div>
@@ -105,9 +103,9 @@ function RightPanel(props) {
         <>
             <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={tab} onChange={handleChange}>
-                        <Tab label="Branches" />
-                        <Tab label="Issues" />
+                    <Tabs value={tab} onChange={handleChange} >
+                        <Tab label="Branches" style={{ color: '#6d757c' }} />
+                        <Tab label="Issues" style={{ color: '#6d757c' }} />
                     </Tabs>
                 </Box>
                 <TabPanel value={tab} index={0}>
@@ -126,17 +124,6 @@ function RightPanel(props) {
                     ))}
                 </TabPanel>
             </Box>
-
-
-
-            {/* <Grid container spacing={2} style={{backgroundColor: 'pink'}}>
-                <Grid item xs={6}> */}
-
-            {/* </Grid> */}
-            {/* <Grid item xs={6}> */}
-
-            {/* </Grid>
-            </Grid> */}
         </>
     )
 }

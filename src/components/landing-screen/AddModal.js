@@ -62,12 +62,10 @@ function AddModal(props) {
                     desc: response.data.description
                 }
 
-                console.log("ttt", ifRepoExists(newRepo));
-                if (ifRepoExists(newRepo)) {
-                    console.log("final yes");
-                    setError('Repository already exists!')
-                }
-                else {
+                // if (ifRepoExists(newRepo)) {
+                //     setError('Repository already exists!')
+                // }
+                // else {
                     setRepos((prev) => {
                         return [
                             newRepo,
@@ -76,7 +74,7 @@ function AddModal(props) {
                     })
                     // localStorage.setItem('repos', JSON.stringify(repos));
                     setError(null);
-                }
+                // }
 
                 // setAddModal(false);
             })
