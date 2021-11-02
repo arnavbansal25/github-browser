@@ -21,7 +21,7 @@ const style = {
 
 function AddModal(props) {
 
-    const { open, handleClose, repos, setRepos } = props;
+    const { open, handleClose, repos, setRepos, setAddModal } = props;
 
     const ownerRef = React.useRef();
     const repoRef = React.useRef();
@@ -56,9 +56,8 @@ function AddModal(props) {
                         ];
                     })
                     setError(null);
+                    setAddModal(false);
                 }
-
-                setAddModal(false);
             })
             .catch((err) => {
                 setError(err.response.data.message);

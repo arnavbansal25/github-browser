@@ -2,15 +2,25 @@ import React from 'react';
 import axios from 'axios';
 
 function ComminInfo({ index, commit }) {
+    var commitDate = commit.commit.author.date;
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const d = new Date(commitDate);
+
     return (
         <div key={index} style={{ backgroundColor: '#161b22', marginBottom: '5px', padding: '10px' }}>
-            <div style={{ fontWeight: 'bold', color: '#b7bdb9', marginBottom: '5px' }}>{commit.commit.author.date}</div>
+            <div style={{ fontWeight: 'bold', color: '#b7bdb9', marginBottom: '5px' }}>
+                {d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear()}
+            </div>
             <div style={{ color: 'white', marginBottom: '10px' }}>
                 {commit.commit.message}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', color: 'white' }}>
-                <img src={commit.author.avatar_url} width="30" height="30" style={{ borderRadius: '50px' }} />
-                &nbsp;&nbsp;{commit.author.login}
+                <img src={commit.author && commit.author.avatar_url} width="30" height="30" style={{ borderRadius: '50px' }} />
+                &nbsp;&nbsp;{commit.author && commit.author.login}
             </div>
         </div>
     )

@@ -60,6 +60,7 @@ function LandingScreen() {
                 handleClose={() => setAddModal(false)}
                 repos={repos}
                 setRepos={setRepos}
+                setAddModal={setAddModal}
             />
 
             {/* Page Heading */}
