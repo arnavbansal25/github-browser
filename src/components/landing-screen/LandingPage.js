@@ -1,21 +1,12 @@
 import React from 'react';
 import { styled as muiStyled } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Paper, Grid, Button } from '@mui/material';
+import { Paper, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import axios from 'axios';
 
 import AddModal from './AddModal';
 import LeftPanel from './LeftPanel';
 import RightPanel from './RightPanel';
-
-const Item = muiStyled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-    border: '2px solid #000',
-}));
 
 const Wrapper = styled.div`
     padding: 0 20px 0 20px;
@@ -52,16 +43,6 @@ function LandingScreen() {
     const [repos, setRepos] = React.useState([]);
     const [selectedRepo, setSelectedRepo] = React.useState();
     const [addModal, setAddModal] = React.useState(false);
-
-
-
-    React.useEffect(() => {
-        // setRepos(JSON.parse(localStorage.getItem('repos')))
-        // axios.get(`https://api.github.com/users/arnavbansal25/repos`)
-        //     .then(response => {
-        //         console.log("qq", response);
-        //     })
-    }, [])
 
     const handleDeleteRepo = () => {
         setRepos(prev => {

@@ -1,19 +1,7 @@
 import React from 'react';
 import { styled as muiStyled } from '@mui/material/styles';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { Paper, Grid, Button, Tabs, Tab, Box, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import Modal from '@mui/material/Modal';
+import { Paper, Tabs, Tab, Box, Typography } from '@mui/material';
 import axios from 'axios';
-
-const Item = muiStyled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-    border: '2px solid #000',
-}));
 
 function BranchInfo({ index, branch, ownerName, repoName }) {
     return (
@@ -75,7 +63,6 @@ function RightPanel(props) {
 
         axios.get(`https://api.github.com/repos/${ownerName}/${repoName}/branches`)
             .then(response => {
-                console.log("qqe", response);
                 setBranches(response.data);
             })
             .catch(err => {
@@ -84,7 +71,6 @@ function RightPanel(props) {
 
         axios.get(`https://api.github.com/repos/${ownerName}/${repoName}/issues`)
             .then(response => {
-                console.log("qqep", response);
                 setIssues(response.data);
             })
             .catch(err => {
