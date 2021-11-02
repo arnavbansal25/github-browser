@@ -70,6 +70,7 @@ function MainComponent() {
         setRepos(prev => {
             return prev.filter(repo => repo.fullName != selectedRepo.fullName);
         });
+        setSelectedRepo(null);
     }
 
 

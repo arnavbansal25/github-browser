@@ -42,7 +42,7 @@ function AddModal(props) {
 
     const ifRepoExists = (repo) => {
         for (var i = 0; i < repos.length; i++) {
-            if (repos[i].fullName === repo.fullName || repos[i].desc === repo.desc) {
+            if (repos[i].fullName === repo.fullName) {
                 return true;
             }
         }

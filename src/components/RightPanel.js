@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled as muiStyled } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Paper, Grid, Button, TextField } from '@mui/material';
+import PropTypes from 'prop-types';
+import { Paper, Grid, Button, Tabs, Tab, Box, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 
@@ -17,20 +17,43 @@ const Item = muiStyled(Paper)(({ theme }) => ({
 
 function BranchInfo({ index, branch }) {
     return (
-        <div key={index}>
+        <div key={index} style={{cursor: 'pointer', backgroundColor: 'pink', marginBottom: '5px'}}>
             {branch.name}
         </div>
     )
 };
 
 function IssueInfo({ index, issue }) {
-    console.log("call");
+    console.log("call", issue);
     return (
         <div key={index}>
-            <img src={issue.user.avatar_url} />
             {issue.title}
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <img src={issue.user.avatar_url} width="30" height="30" />
+                &nbsp;&nbsp;{issue.user.login}
+            </div>
         </div>
     )
+}
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
 }
 
 function RightPanel(props) {
@@ -62,16 +85,44 @@ function RightPanel(props) {
             })
     }, [selectedRepo])
 
+
+    const [tab, setTab] = React.useState(0);
+
+    const handleChange = (event, newTab) => {
+        setTab(newTab);
+    };
+
     return (
         <>
-            {branches && branches.map((item, index) => (
-                <BranchInfo index={index} branch={item} />
-                // <Item>{console.log("select", selectedRepo)}</Item>
-            ))}
-            {console.log("rr", issues)}
-            {issues && issues.map((item, index) => (
-                <IssueInfo index={index} issue={item} />
-            ))}
+            <Box sx={{ width: '100%' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs value={tab} onChange={handleChange}>
+                        <Tab label="Branches" />
+                        <Tab label="Issues" />
+                    </Tabs>
+                </Box>
+                <TabPanel value={tab} index={0}>
+                    {branches && branches.map((item, index) => (
+                        <BranchInfo index={index} branch={item} />
+                    ))}
+                </TabPanel>
+                <TabPanel value={tab} index={1}>
+                    {issues && issues.map((item, index) => (
+                        <IssueInfo index={index} issue={item} />
+                    ))}
+                </TabPanel>
+            </Box>
+
+
+
+            {/* <Grid container spacing={2} style={{backgroundColor: 'pink'}}>
+                <Grid item xs={6}> */}
+
+            {/* </Grid> */}
+            {/* <Grid item xs={6}> */}
+
+            {/* </Grid>
+            </Grid> */}
         </>
     )
 }
