@@ -44,7 +44,7 @@ function BranchCommits() {
 
     return (
         <>
-            <h1 style={{ color: 'white', textAlign: 'center' }}>{branch.name}</h1>
+            <h1 style={{ color: 'white', textAlign: 'center' }}>Commits: {branch.name}</h1>
             <div style={{ padding: '0 50px' }}>
                 {commits && commits.map((item, index) => (
                     <ComminInfo index={index} commit={item} />
